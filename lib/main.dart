@@ -1,19 +1,21 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: AlchemixApp(),
+    home: Lotus App(),
     debugShowCheckedModeBanner: false,
   ));
 }
 
 @override
-class AlchemixApp extends StatefulWidget {
+class LotusApp extends StatefulWidget {
   @override
-  State<AlchemixApp> createState() => _AlchemixAppState();
+  State<LotusApp> createState() => _LotusAppState();
 }
 
-class _AlchemixAppState extends State<AlchemixApp> {
+class _LotusAppState extends State<LotusApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,31 +38,33 @@ class _AlchemixAppState extends State<AlchemixApp> {
   }
 
   Widget _buildHeader() {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 20.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text("LOTUS SENTRY", style: TextStyle(color: Colors.grey[400])),
-          Row(
-            children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey[800],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+    return Flexible(
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 20.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text("LOTUS SENTRY", style: TextStyle(color: Colors.grey[400])),
+            Row(
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.grey[800],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                   ),
+                  onPressed: () {},
+                  child: Text("CONNECT WALLET"),
                 ),
-                onPressed: () {},
-                child: Text("CONNECT WALLET"),
-              ),
-              SizedBox(width: 16),
-              Icon(Icons.search, color: Colors.grey[400]),
-              SizedBox(width: 8),
-              Icon(Icons.verified_user, color: Colors.grey[400]),
-            ],
-          ),
-        ],
+                SizedBox(width: 16),
+                Icon(Icons.search, color: Colors.grey[400]),
+                SizedBox(width: 8),
+                Icon(Icons.verified_user, color: Colors.grey[400]),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -72,79 +76,102 @@ class _AlchemixAppState extends State<AlchemixApp> {
       'Access half your collateral as a loan'
     ];
     int _index = 0;
+    bool _isHovered = false;
 
-    return Column(
-      children: [
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 40.0),
-            child: Column(
-              children: [
-                Text(
-                  "Real World Real Assets Real Time",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 16),
-                Center(
-                  child: AnimatedSwitcher(
-                    duration: Duration(seconds: 1),
-                    transitionBuilder:
-                        (Widget child, Animation<double> animation) {
-                      return FadeTransition(opacity: animation, child: child);
-                    },
-                    child: Text(
-                      _texts[_index],
-                      key: ValueKey<int>(_index),
-                      style: TextStyle(
-                          fontSize: 24.0,
+    return Flexible(
+      child: Column(
+        children: [
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 40.0),
+              child: Column(
+                children: [
+                  Text(
+                    "Real World Real Assets Real Time",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 16),
+                  Center(
+                    child: AnimatedSwitcher(
+                      duration: Duration(seconds: 1),
+                      transitionBuilder:
+                          (Widget child, Animation<double> animation) {
+                        return FadeTransition(opacity: animation, child: child);
+                      },
+                      child: Text(
+                        _texts[_index],
+                        key: ValueKey<int>(_index),
+                        style: TextStyle(
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 200),
+                    width: 300,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: _isHovered
+                            ? [Colors.orange.shade200, Colors.orange.shade200]
+                            : [Colors.transparent, Colors.transparent],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                      border: Border.all(
+                        color: Colors.orange.shade100,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Get your first Self-Repaying Loan',
+                        style: TextStyle(
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 16),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue[600],
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: Text("Get your first Self-Repaying Loan →"),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-        //Image.network("https://placehold.co/600x300", height: 300),
-        _buildTextSection(),
-        _buildPathSection(),
-        _buildLeverageSection(),
-        _buildGridSection(),
-      ],
+          //Image.network("https://placehold.co/600x300", height: 300),
+          _buildTextSection(),
+          _buildPathSection(),
+          _buildLeverageSection(),
+          _buildGridSection(),
+        ],
+      ),
     );
   }
 
   Widget _buildTextSection() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 40.0),
-      child: Column(
-        children: [
-          Text(
-            "By borrowing a synthetic version of the asset you deposit you'll avoid the risk of liquidation. Defi innovation on a whole new level, Alchemix is the first same-asset loan product in DeFi.",
-            style: TextStyle(color: Colors.grey[400]),
-          ),
-          SizedBox(height: 16),
-          Text(
-            "Using your collateral we earn yield on your behalf to pay off your loan automagically!",
-            style: TextStyle(color: Colors.grey[400]),
-          ),
-        ],
+    return Flexible(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 40.0),
+        child: Column(
+          children: [
+            Text(
+              "By borrowing a synthetic version of the asset you deposit you'll avoid the risk of liquidation. Defi innovation on a whole new level, Alchemix is the first same-asset loan product in DeFi.",
+              style: TextStyle(color: Colors.grey[400]),
+            ),
+            SizedBox(height: 16),
+            Text(
+              "Using your collateral we earn yield on your behalf to pay off your loan automagically!",
+              style: TextStyle(color: Colors.grey[400]),
+            ),
+          ],
+        ),
       ),
     );
   }
