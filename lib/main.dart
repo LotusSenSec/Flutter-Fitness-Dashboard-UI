@@ -1,30 +1,4 @@
-// import 'package:fitness_dashboard_ui/const/constant.dart';
-// import 'package:fitness_dashboard_ui/screens/main_screen.dart';
-// import 'package:flutter/material.dart';
-
-// void main() {
-//   runApp(const MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Dashborad UI',
-//       debugShowCheckedModeBanner: false,
-//       theme: ThemeData(
-//         scaffoldBackgroundColor: backgroundColor,
-//         brightness: Brightness.dark,
-//       ),
-//       home: const MainScreen(),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
-//import 'package:flutter_icons/flutter_icons.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -33,7 +7,13 @@ void main() {
   ));
 }
 
-class AlchemixApp extends StatelessWidget {
+@override
+class AlchemixApp extends StatefulWidget {
+  @override
+  State<AlchemixApp> createState() => _AlchemixAppState();
+}
+
+class _AlchemixAppState extends State<AlchemixApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,6 +66,13 @@ class AlchemixApp extends StatelessWidget {
   }
 
   Widget _buildMainContent(BuildContext context) {
+    final List<String> _texts = [
+      'Time is your asset',
+      'Spend. Save. Succeed',
+      'Access half your collateral as a loan'
+    ];
+    int _index = 0;
+
     return Column(
       children: [
         Center(
@@ -96,12 +83,28 @@ class AlchemixApp extends StatelessWidget {
                 Text(
                   "Real World Real Assets Real Time",
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 16),
-                Text(
-                  "Your only debt is time",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
+                Center(
+                  child: AnimatedSwitcher(
+                    duration: Duration(seconds: 1),
+                    transitionBuilder:
+                        (Widget child, Animation<double> animation) {
+                      return FadeTransition(opacity: animation, child: child);
+                    },
+                    child: Text(
+                      _texts[_index],
+                      key: ValueKey<int>(_index),
+                      style: TextStyle(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
                 ),
                 SizedBox(height: 16),
                 ElevatedButton(
@@ -153,7 +156,8 @@ class AlchemixApp extends StatelessWidget {
         children: [
           Text(
             "Choose your path",
-            style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 16),
           Row(
@@ -185,18 +189,25 @@ class AlchemixApp extends StatelessWidget {
         children: [
           Text(
             "Leverage your assets",
-            style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildAssetOption("ETH 50% LTV", "https://placehold.co/50x50", "ETH logo"),
-              _buildAssetOption("WSTETH 50% LTV", "https://placehold.co/50x50", "WSTETH logo"),
-              _buildAssetOption("RETH 50% LTV", "https://placehold.co/50x50", "RETH logo"),
-              _buildAssetOption("DAI 50% LTV", "https://placehold.co/50x50", "DAI logo"),
-              _buildAssetOption("USDC 50% LTV", "https://placehold.co/50x50", "USDC logo"),
-              _buildAssetOption("USDT 50% LTV", "https://placehold.co/50x50", "USDT logo"),
+              _buildAssetOption(
+                  "ETH 50% LTV", "https://placehold.co/50x50", "ETH logo"),
+              _buildAssetOption("WSTETH 50% LTV", "https://placehold.co/50x50",
+                  "WSTETH logo"),
+              _buildAssetOption(
+                  "RETH 50% LTV", "https://placehold.co/50x50", "RETH logo"),
+              _buildAssetOption(
+                  "DAI 50% LTV", "https://placehold.co/50x50", "DAI logo"),
+              _buildAssetOption(
+                  "USDC 50% LTV", "https://placehold.co/50x50", "USDC logo"),
+              _buildAssetOption(
+                  "USDT 50% LTV", "https://placehold.co/50x50", "USDT logo"),
             ],
           ),
           TextButton(
@@ -219,10 +230,14 @@ class AlchemixApp extends StatelessWidget {
       crossAxisSpacing: 8,
       mainAxisSpacing: 8,
       children: <Widget>[
-        _buildGridItem("Leverage your wealth", "Keep exposure to important assets while making them work for you. Leverage more of your wealth (without risk of liquidation) by borrowing a synthetic version of your collateral."),
-        _buildGridItem("Wide range of tokens", "Alchemix is opening doors to new collateral types. Leverage more of your wealth than ever before."),
-        _buildGridItem("No liquidations", "No matter what happens we'll never liquidate your deposit. You can choose to self-liquidate your own loan at your own discretion."),
-        _buildGridItem("Completely flexible", "Alchemix doesn't lock your deposit or charge you fees. Your funds are accessible 100% of the time. You can also repay your debt whenever you like."),
+        _buildGridItem("Leverage your wealth",
+            "Keep exposure to important assets while making them work for you. Leverage more of your wealth (without risk of liquidation) by borrowing a synthetic version of your collateral."),
+        _buildGridItem("Wide range of tokens",
+            "Alchemix is opening doors to new collateral types. Leverage more of your wealth than ever before."),
+        _buildGridItem("No liquidations",
+            "No matter what happens we'll never liquidate your deposit. You can choose to self-liquidate your own loan at your own discretion."),
+        _buildGridItem("Completely flexible",
+            "Alchemix doesn't lock your deposit or charge you fees. Your funds are accessible 100% of the time. You can also repay your debt whenever you like."),
       ],
     );
   }
@@ -233,11 +248,16 @@ class AlchemixApp extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("&copy; 2020 - 2023 Alchemix Labs", style: TextStyle(color: Colors.grey[400], fontSize: 12)),
-          Text("NAVIGATION", style: TextStyle(color: Colors.grey[400], fontSize: 12)),
-          Text("SOCIAL", style: TextStyle(color: Colors.grey[400], fontSize: 12)),
-          Text("PROUDLY USING", style: TextStyle(color: Colors.grey[400], fontSize: 12)),
-          Text("CARBON FOOTPRINT", style: TextStyle(color: Colors.grey[400], fontSize: 12)),
+          Text("&copy; 2020 - 2023 Alchemix Labs",
+              style: TextStyle(color: Colors.grey[400], fontSize: 12)),
+          Text("NAVIGATION",
+              style: TextStyle(color: Colors.grey[400], fontSize: 12)),
+          Text("SOCIAL",
+              style: TextStyle(color: Colors.grey[400], fontSize: 12)),
+          Text("PROUDLY USING",
+              style: TextStyle(color: Colors.grey[400], fontSize: 12)),
+          Text("CARBON FOOTPRINT",
+              style: TextStyle(color: Colors.grey[400], fontSize: 12)),
         ],
       ),
     );
@@ -246,7 +266,8 @@ class AlchemixApp extends StatelessWidget {
   Widget _buildPathOption(String title, String description) {
     return Column(
       children: [
-        Text(title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        Text(title,
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         Text(description, style: TextStyle(color: Colors.white)),
       ],
     );
@@ -271,7 +292,9 @@ class AlchemixApp extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          Text(title,
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
           SizedBox(height: 8),
           Text(content, style: TextStyle(color: Colors.white)),
           TextButton(
@@ -286,4 +309,3 @@ class AlchemixApp extends StatelessWidget {
     );
   }
 }
-
